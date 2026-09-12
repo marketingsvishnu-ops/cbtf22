@@ -1,1510 +1,357 @@
-```html
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>RiseUp | Your Journey Starts Today</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        :root {
-            --bg: #080b16;
-            --bg2: #10162b;
-            --card: rgba(255,255,255,0.06);
-            --text: #ffffff;
-            --muted: #a9b0c5;
-            --primary: #7c5cff;
-            --secondary: #00d4ff;
-            --gold: #ffd166;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* ================= NAVBAR ================= */
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            backdrop-filter: blur(15px);
-            background: rgba(8, 11, 22, 0.75);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        nav {
-            max-width: 1200px;
-            height: 75px;
-            margin: auto;
-            padding: 0 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: 900;
-            letter-spacing: 1px;
-        }
-
-        .logo span {
-            color: var(--secondary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #ddd;
-            transition: .3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--secondary);
-        }
-
-        .nav-btn {
-            padding: 11px 20px;
-            border-radius: 25px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            font-weight: bold;
-        }
-
-        /* ================= HERO ================= */
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            padding: 120px 8% 80px;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: var(--primary);
-            filter: blur(180px);
-            opacity: .22;
-            top: -200px;
-            left: -150px;
-        }
-
-        .hero::after {
-            content: "";
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: var(--secondary);
-            filter: blur(180px);
-            opacity: .15;
-            right: -150px;
-            bottom: -200px;
-        }
-
-        .hero-container {
-            max-width: 1200px;
-            width: 100%;
-            margin: auto;
-            display: grid;
-            grid-template-columns: 1.2fr .8fr;
-            gap: 60px;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 9px 16px;
-            border: 1px solid rgba(255,255,255,.15);
-            background: rgba(255,255,255,.05);
-            border-radius: 30px;
-            color: var(--secondary);
-            margin-bottom: 25px;
-        }
-
-        .hero h1 {
-            font-size: clamp(48px, 7vw, 86px);
-            line-height: 1;
-            margin-bottom: 25px;
-        }
-
-        .gradient-text {
-            background: linear-gradient(90deg, #7c5cff, #00d4ff);
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-
-        .hero p {
-            color: var(--muted);
-            font-size: 19px;
-            line-height: 1.8;
-            max-width: 650px;
-            margin-bottom: 35px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 15px 25px;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: .3s;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-
-        .btn-secondary {
-            border: 1px solid rgba(255,255,255,.15);
-            background: rgba(255,255,255,.04);
-        }
-
-        .btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 30px rgba(0,0,0,.3);
-        }
-
-        /* ================= HERO CARD ================= */
-
-        .hero-card {
-            background: linear-gradient(
-                145deg,
-                rgba(124,92,255,.18),
-                rgba(0,212,255,.06)
-            );
-            border: 1px solid rgba(255,255,255,.12);
-            border-radius: 30px;
-            padding: 35px;
-            box-shadow: 0 30px 80px rgba(0,0,0,.35);
-            animation: float 5s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%,100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-15px);
-            }
-        }
-
-        .circle {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 25px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: conic-gradient(
-                var(--secondary) 0 72%,
-                rgba(255,255,255,.08) 72%
-            );
-            position: relative;
-        }
-
-        .circle::after {
-            content: "72%";
-            position: absolute;
-            width: 115px;
-            height: 115px;
-            border-radius: 50%;
-            background: var(--bg2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 27px;
-            font-weight: bold;
-        }
-
-        .hero-card h3 {
-            text-align: center;
-            margin-bottom: 12px;
-        }
-
-        .hero-card p {
-            text-align: center;
-            font-size: 15px;
-            margin: 0;
-        }
-
-        /* ================= SECTION ================= */
-
-        section {
-            padding: 110px 8%;
-        }
-
-        .section-header {
-            text-align: center;
-            max-width: 700px;
-            margin: auto;
-            margin-bottom: 60px;
-        }
-
-        .section-header span {
-            color: var(--secondary);
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .section-header h2 {
-            font-size: 45px;
-            margin: 15px 0;
-        }
-
-        .section-header p {
-            color: var(--muted);
-            line-height: 1.7;
-        }
-
-        /* ================= FEATURES ================= */
-
-        .features {
-            background: var(--bg2);
-        }
-
-        .feature-grid {
-            max-width: 1200px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .feature-card {
-            padding: 35px;
-            background: var(--card);
-            border: 1px solid rgba(255,255,255,.08);
-            border-radius: 22px;
-            transition: .3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(0,212,255,.4);
-        }
-
-        .icon {
-            font-size: 35px;
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 {
-            margin-bottom: 12px;
-            font-size: 22px;
-        }
-
-        .feature-card p {
-            color: var(--muted);
-            line-height: 1.7;
-        }
-
-        /* ================= QUOTE ================= */
-
-        .quote-section {
-            text-align: center;
-            background:
-                radial-gradient(
-                    circle at center,
-                    rgba(124,92,255,.15),
-                    transparent 50%
-                );
-        }
-
-        .quote-box {
-            max-width: 900px;
-            margin: auto;
-            padding: 55px;
-            border-radius: 30px;
-            background: rgba(255,255,255,.05);
-            border: 1px solid rgba(255,255,255,.1);
-        }
-
-        .quote-mark {
-            font-size: 70px;
-            color: var(--secondary);
-            line-height: .5;
-        }
-
-        #quote {
-            font-size: 30px;
-            line-height: 1.5;
-            margin: 30px 0;
-        }
-
-        #author {
-            color: var(--muted);
-            margin-bottom: 25px;
-        }
-
-        .quote-button {
-            border: none;
-            cursor: pointer;
-            padding: 14px 25px;
-            border-radius: 25px;
-            background: linear-gradient(90deg,var(--primary),var(--secondary));
-            color: white;
-            font-weight: bold;
-        }
-
-        /* ================= GOALS ================= */
-
-        .goal-container {
-            max-width: 1200px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .goal-text h2 {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .goal-text p {
-            color: var(--muted);
-            line-height: 1.8;
-            margin-bottom: 25px;
-        }
-
-        .goal-list {
-            list-style: none;
-        }
-
-        .goal-list li {
-            margin: 15px 0;
-            color: #ddd;
-        }
-
-        .goal-list li::before {
-            content: "✓";
-            color: var(--secondary);
-            margin-right: 12px;
-            font-weight: bold;
-        }
-
-        .goal-box {
-            background: var(--card);
-            padding: 35px;
-            border-radius: 25px;
-            border: 1px solid rgba(255,255,255,.1);
-        }
-
-        .progress-item {
-            margin-bottom: 25px;
-        }
-
-        .progress-title {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 9px;
-        }
-
-        .progress {
-            height: 9px;
-            border-radius: 20px;
-            background: rgba(255,255,255,.08);
-            overflow: hidden;
-        }
-
-        .progress span {
-            display: block;
-            height: 100%;
-            border-radius: 20px;
-            background: linear-gradient(90deg,var(--primary),var(--secondary));
-        }
-
-        /* ================= STATS ================= */
-
-        .stats {
-            background: var(--bg2);
-        }
-
-        .stats-grid {
-            max-width: 1000px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(4,1fr);
-            gap: 20px;
-        }
-
-        .stat {
-            text-align: center;
-            padding: 30px 10px;
-        }
-
-        .stat h3 {
-            font-size: 45px;
-            color: var(--secondary);
-            margin-bottom: 8px;
-        }
-
-        .stat p {
-            color: var(--muted);
-        }
-
-        /* ================= STEPS ================= */
-
-        .steps-grid {
-            max-width: 1100px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(3,1fr);
-            gap: 30px;
-        }
-
-        .step {
-            text-align: center;
-            padding: 35px 25px;
-        }
-
-        .step-number {
-            width: 60px;
-            height: 60px;
-            margin: auto auto 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg,var(--primary),var(--secondary));
-            font-size: 22px;
-            font-weight: bold;
-        }
-
-        .step h3 {
-            margin-bottom: 12px;
-        }
-
-        .step p {
-            color: var(--muted);
-            line-height: 1.6;
-        }
-
-        /* ================= TESTIMONIALS ================= */
-
-        .testimonials {
-            background: var(--bg2);
-        }
-
-        .testimonial-grid {
-            max-width: 1100px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(3,1fr);
-            gap: 25px;
-        }
-
-        .testimonial {
-            padding: 30px;
-            background: var(--card);
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,.08);
-        }
-
-        .stars {
-            color: var(--gold);
-            margin-bottom: 20px;
-        }
-
-        .testimonial p {
-            color: #ddd;
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .person {
-            color: var(--secondary);
-            font-weight: bold;
-        }
-
-        /* ================= NEWSLETTER ================= */
-
-        .newsletter {
-            max-width: 1000px;
-            margin: 100px auto;
-            padding: 70px 30px;
-            text-align: center;
-            border-radius: 30px;
-            background: linear-gradient(
-                135deg,
-                rgba(124,92,255,.25),
-                rgba(0,212,255,.12)
-            );
-            border: 1px solid rgba(255,255,255,.12);
-        }
-
-        .newsletter h2 {
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
-
-        .newsletter p {
-            color: var(--muted);
-            margin-bottom: 30px;
-        }
-
-        .email-form {
-            display: flex;
-            max-width: 550px;
-            margin: auto;
-            gap: 10px;
-        }
-
-        .email-form input {
-            flex: 1;
-            padding: 16px 20px;
-            border-radius: 30px;
-            border: 1px solid rgba(255,255,255,.1);
-            background: rgba(0,0,0,.3);
-            color: white;
-            outline: none;
-        }
-
-        .email-form button {
-            border: none;
-            padding: 15px 25px;
-            border-radius: 30px;
-            background: var(--secondary);
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* ================= FAQ ================= */
-
-        .faq {
-            max-width: 850px;
-            margin: auto;
-        }
-
-        details {
-            margin-bottom: 15px;
-            background: var(--card);
-            border: 1px solid rgba(255,255,255,.08);
-            border-radius: 15px;
-            padding: 20px;
-        }
-
-        summary {
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        details p {
-            color: var(--muted);
-            line-height: 1.7;
-            margin-top: 15px;
-        }
-
-        /* ================= FOOTER ================= */
-
-        footer {
-            padding: 60px 8% 25px;
-            background: #05070e;
-            border-top: 1px solid rgba(255,255,255,.08);
-        }
-
-        .footer-grid {
-            max-width: 1100px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-
-        .footer-brand p {
-            color: var(--muted);
-            line-height: 1.7;
-            margin-top: 15px;
-            max-width: 350px;
-        }
-
-        footer h4 {
-            margin-bottom: 18px;
-        }
-
-        footer ul {
-            list-style: none;
-        }
-
-        footer li {
-            margin: 12px 0;
-            color: var(--muted);
-        }
-
-        footer li:hover {
-            color: var(--secondary);
-            cursor: pointer;
-        }
-
-        .copyright {
-            text-align: center;
-            color: #666;
-            padding-top: 25px;
-            border-top: 1px solid rgba(255,255,255,.06);
-        }
-
-        /* ================= RESPONSIVE ================= */
-
-        @media(max-width: 900px) {
-
-            .hero-container,
-            .goal-container {
-                grid-template-columns: 1fr;
-            }
-
-            .feature-grid,
-            .testimonial-grid,
-            .steps-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media(max-width: 650px) {
-
-            .nav-links {
-                display: none;
-            }
-
-            .hero {
-                text-align: center;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .feature-grid,
-            .testimonial-grid,
-            .steps-grid,
-            .stats-grid,
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section-header h2,
-            .goal-text h2 {
-                font-size: 35px;
-            }
-
-            .quote-box {
-                padding: 30px 20px;
-            }
-
-            #quote {
-                font-size: 22px;
-            }
-
-            .email-form {
-                flex-direction: column;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#0f1020;
+  color:white;
+}
+
+.container{
+  display:flex;
+  flex-direction:row-reverse;
+  min-height:100vh;
+}
+
+.demo{
+  width:70%;
+  background:#111;
+  position:relative;
+}
+
+iframe{
+  width:100%;
+  height:100vh;
+  border:none;
+}
+
+.right{
+  width:30%;
+  padding:30px 22px;
+  background:linear-gradient(180deg,#181a35,#0b0c18);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow-y:auto;
+}
+
+.box{
+  width:100%;
+  background:rgba(10,10,10,.88);
+  border:1px solid #9C27B0;
+  border-radius:22px;
+  padding:26px 20px;
+  text-align:center;
+  box-shadow:0 0 35px rgba(156,39,176,.28);
+}
+
+.badge{
+  display:inline-block;
+  background:#9C27B0;
+  color:#fff;
+  padding:8px 18px;
+  border-radius:30px;
+  font-weight:800;
+  margin-bottom:16px;
+}
+
+h1{
+  font-size:34px;
+  color:#9C27B0;
+  margin-bottom:10px;
+  text-transform:uppercase;
+}
+
+.sub{
+  font-size:17px;
+  line-height:1.5;
+  margin-bottom:22px;
+  color:#eee;
+}
+
+.features{
+  display:grid;
+  gap:12px;
+  margin:22px 0;
+}
+
+.feature{
+  background:linear-gradient(90deg,#1b1b1b,#2b2208);
+  border:1px solid rgba(212,175,55,.55);
+  padding:14px;
+  border-radius:14px;
+  font-size:17px;
+  font-weight:700;
+}
+
+.feature span{
+  color:#9C27B0;
+}
+
+/* Signup Button */
+.signup-btn{
+  display:inline-block;
+  margin-top:8px;
+  padding:9px 16px;
+  background:#25D366;
+  color:#fff;
+  text-decoration:none;
+  border-radius:9px;
+  font-size:15px;
+  font-weight:800;
+  border:1px solid #1ebe5d;
+  transition:.3s;
+}
+
+.signup-btn:hover{
+  background:#1ebe5d;
+  transform:scale(1.03);
+}
+
+.website-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-top:16px;
+  font-size:14px;
+  font-weight:bold;
+}
+
+.website-row a{
+  text-decoration:none;
+}
+
+.website{
+  color:#25D366;
+}
+
+.whatsapp-small{
+  color:#9C27B0;
+}
+
+.cta{
+  display:block;
+  background:#25D366;
+  color:#fff;
+  text-decoration:none;
+  padding:17px;
+  border-radius:16px;
+  font-size:20px;
+  font-weight:900;
+  margin-top:22px;
+  box-shadow:0 8px 18px rgba(37,211,102,.35);
+  transition:.3s;
+}
+
+.cta:hover{
+  transform:scale(1.03);
+  background:#1ebe5d;
+}
+
+/* Floating Signup Button */
+.floating-signup{
+  position:absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:50;
+  background:#9C27B0;
+  color:#fff;
+  padding:12px 24px;
+  border-radius:8px;
+  font-size:18px;
+  font-weight:900;
+  border:3px solid #fff;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(156,39,176,0.6);
+  transition:.3s;
+  text-decoration:none;
+  display:inline-block;
+}
+
+.floating-signup:hover{
+  transform:translateX(-50%) scale(1.08);
+  background:#7B1FA2;
+  box-shadow:0 12px 25px rgba(156,39,176,0.8);
+}
+
+.trust{
+  margin-top:16px;
+  color:#ccc;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.footer{
+  margin-top:18px;
+  font-size:12px;
+  color:#aaa;
+  line-height:1.5;
+}
+
+@media(max-width:768px){
+  .container{
+    flex-direction:column-reverse;
+  }
+
+  .demo,
+  .right{
+    width:100%;
+  }
+
+  iframe{
+    height:500px;
+  }
+
+  .right{
+    padding:20px;
+  }
+}
+
+@media(max-width:480px){
+  h1{
+    font-size:28px;
+  }
+
+  .sub{
+    font-size:16px;
+  }
+
+  .feature{
+    font-size:16px;
+    padding:12px;
+  }
+
+  .signup-btn{
+    font-size:14px;
+    padding:8px 13px;
+  }
+
+  .cta{
+    font-size:18px;
+    padding:15px;
+  }
+
+  .website-row{
+    flex-direction:column;
+    gap:8px;
+  }
+}
+</style>
+
 </head>
 
 <body>
 
-    <!-- ================= NAVBAR ================= -->
+<div class="container">
 
-    <header>
-        <nav>
-            <a href="#" class="logo">
-                RISE<span>UP</span>
-            </a>
+  <div class="demo">
+    <a href="https://cbtf.com/clk?src=dvOFld5Vu" target="_blank" rel="noopener noreferrer" class="floating-signup">🔥 CLICK ON SIGNUP 🔥</a>
+    <iframe src="https://cbtf.com/clk?src=dvOFld5Vu"></iframe>
+  </div>
 
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#goals">Goals</a></li>
-                <li><a href="#stories">Stories</a></li>
-                <li><a href="#faq">FAQ</a></li>
-            </ul>
+  <div class="right">
+    <div class="box">
 
-            <a href="#quote-section" class="nav-btn">
-                Get Inspired
-            </a>
-        </nav>
-    </header>
+```
+  <div class="badge">AUTO WEBSITE</div>
 
+  <h1>Get Your ID Now</h1>
 
-    <!-- ================= HERO ================= -->
+  <p class="sub">
+    Fast auto website service with easy deposit support.
+    New users can start quickly through WhatsApp.
+  </p>
 
-    <section class="hero" id="home">
+  <div class="features">www.cbtf.com
 
-        <div class="hero-container">
-
-            <div>
-
-                <div class="badge">
-                    ✨ Your better life starts here
-                </div>
-
-                <h1>
-                    Become the
-                    <span class="gradient-text">
-                        strongest version
-                    </span>
-                    of yourself.
-                </h1>
-
-                <p>
-                    You don't need to change your entire life overnight.
-                    You only need to make one better decision today.
-                    Start small. Stay consistent. Keep moving forward.
-                </p>
-
-                <div class="hero-buttons">
-                    <a href="#quote-section" class="btn btn-primary">
-                        Start Your Journey →
-                    </a>
-
-                    <a href="#features" class="btn btn-secondary">
-                        Explore More
-                    </a>
-                </div>
-
-            </div>
-
-
-            <div class="hero-card">
-
-                <div class="circle"></div>
-
-                <h3>Today's Progress</h3>
-
-                <p>
-                    Every small step you take today becomes part of
-                    the person you become tomorrow.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= FEATURES ================= -->
-
-    <section class="features" id="features">
-
-        <div class="section-header">
-
-            <span>Why RiseUp?</span>
-
-            <h2>
-                Build a mindset that never quits.
-            </h2>
-
-            <p>
-                Motivation gets you started, but discipline keeps you moving.
-                Build habits that make progress inevitable.
-            </p>
-
-        </div>
-
-
-        <div class="feature-grid">
-
-            <div class="feature-card">
-                <div class="icon">🔥</div>
-                <h3>Daily Motivation</h3>
-                <p>
-                    Begin every morning with powerful ideas and reminders
-                    that help you stay focused on what really matters.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon">🎯</div>
-                <h3>Clear Goals</h3>
-                <p>
-                    Turn your biggest dreams into smaller goals that you
-                    can actually work toward every single day.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon">🧠</div>
-                <h3>Strong Mindset</h3>
-                <p>
-                    Learn to handle failure, doubt and difficult days
-                    without allowing them to define your future.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon">⚡</div>
-                <h3>Take Action</h3>
-                <p>
-                    Stop waiting for the perfect moment. Progress begins
-                    when you decide to take the first step.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon">📈</div>
-                <h3>Track Progress</h3>
-                <p>
-                    Look back at how far you've come and use your progress
-                    as fuel for your next challenge.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon">🏆</div>
-                <h3>Celebrate Wins</h3>
-                <p>
-                    Every completed task and every difficult day you survive
-                    deserves recognition.
-                </p>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= QUOTE ================= -->
-
-    <section class="quote-section" id="quote-section">
-
-        <div class="section-header">
-
-            <span>Daily Inspiration</span>
-
-            <h2>
-                A reminder you might need today.
-            </h2>
-
-        </div>
-
-        <div class="quote-box">
-
-            <div class="quote-mark">“</div>
-
-            <div id="quote">
-                The future depends on what you do today.
-            </div>
-
-            <div id="author">
-                — Mahatma Gandhi
-            </div>
-
-            <button class="quote-button" onclick="newQuote()">
-                ✨ New Motivation
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= GOALS ================= -->
-
-    <section id="goals">
-
-        <div class="goal-container">
-
-            <div class="goal-text">
-
-                <h2>
-                    Your goals are closer than you think.
-                </h2>
-
-                <p>
-                    Big achievements are usually created through hundreds
-                    of small actions. Don't focus on becoming perfect.
-                    Focus on becoming better.
-                </p>
-
-                <ul class="goal-list">
-                    <li>Set one meaningful goal</li>
-                    <li>Break it into small actions</li>
-                    <li>Work on it every day</li>
-                    <li>Learn from mistakes</li>
-                    <li>Never stop improving</li>
-                </ul>
-
-            </div>
-
-
-            <div class="goal-box">
-
-                <div class="progress-item">
-
-                    <div class="progress-title">
-                        <span>Personal Growth</span>
-                        <span>82%</span>
-                    </div>
-
-                    <div class="progress">
-                        <span style="width:82%"></span>
-                    </div>
-
-                </div>
-
-
-                <div class="progress-item">
-
-                    <div class="progress-title">
-                        <span>Fitness</span>
-                        <span>65%</span>
-                    </div>
-
-                    <div class="progress">
-                        <span style="width:65%"></span>
-                    </div>
-
-                </div>
-
-
-                <div class="progress-item">
-
-                    <div class="progress-title">
-                        <span>Learning</span>
-                        <span>74%</span>
-                    </div>
-
-                    <div class="progress">
-                        <span style="width:74%"></span>
-                    </div>
-
-                </div>
-
-
-                <div class="progress-item">
-
-                    <div class="progress-title">
-                        <span>Discipline</span>
-                        <span>91%</span>
-                    </div>
-
-                    <div class="progress">
-                        <span style="width:91%"></span>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= STATS ================= -->
-
-    <section class="stats">
-
-        <div class="stats-grid">
-
-            <div class="stat">
-                <h3>10K+</h3>
-                <p>People Inspired</p>
-            </div>
-
-            <div class="stat">
-                <h3>365</h3>
-                <p>Daily Messages</p>
-            </div>
-
-            <div class="stat">
-                <h3>95%</h3>
-                <p>Positive Mindset</p>
-            </div>
-
-            <div class="stat">
-                <h3>24/7</h3>
-                <p>Motivation</p>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= STEPS ================= -->
-
-    <section>
-
-        <div class="section-header">
-
-            <span>Simple Process</span>
-
-            <h2>
-                Three steps. One new you.
-            </h2>
-
-            <p>
-                You don't need a complicated system.
-                You just need consistency.
-            </p>
-
-        </div>
-
-
-        <div class="steps-grid">
-
-            <div class="step">
-
-                <div class="step-number">01</div>
-
-                <h3>Decide</h3>
-
-                <p>
-                    Decide what kind of person you want to become
-                    and what matters most to you.
-                </p>
-
-            </div>
-
-
-            <div class="step">
-
-                <div class="step-number">02</div>
-
-                <h3>Act</h3>
-
-                <p>
-                    Take one small action every day that moves
-                    you closer to your goal.
-                </p>
-
-            </div>
-
-
-            <div class="step">
-
-                <div class="step-number">03</div>
-
-                <h3>Repeat</h3>
-
-                <p>
-                    Keep showing up, especially on the days when
-                    you don't feel motivated.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= TESTIMONIALS ================= -->
-
-    <section class="testimonials" id="stories">
-
-        <div class="section-header">
-
-            <span>Success Stories</span>
-
-            <h2>
-                Small changes create big results.
-            </h2>
-
-        </div>
-
-
-        <div class="testimonial-grid">
-
-            <div class="testimonial">
-
-                <div class="stars">
-                    ★★★★★
-                </div>
-
-                <p>
-                    "I stopped waiting for motivation and started building
-                    discipline. That simple change completely changed
-                    how I approach my goals."
-                </p>
-
-                <div class="person">
-                    — Alex
-                </div>
-
-            </div>
-
-
-            <div class="testimonial">
-
-                <div class="stars">
-                    ★★★★★
-                </div>
-
-                <p>
-                    "The biggest lesson I learned is that progress doesn't
-                    have to be huge. One small improvement every day
-                    really adds up."
-                </p>
-
-                <div class="person">
-                    — Sarah
-                </div>
-
-            </div>
-
-
-            <div class="testimonial">
-
-                <div class="stars">
-                    ★★★★★
-                </div>
-
-                <p>
-                    "I started setting realistic goals instead of trying
-                    to change everything at once. Now I actually enjoy
-                    seeing my progress."
-                </p>
-
-                <div class="person">
-                    — Daniel
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= NEWSLETTER ================= -->
-
-    <div class="newsletter">
-
-        <h2>
-            Get motivation in your inbox.
-        </h2>
-
-        <p>
-            Receive a short motivational message every week.
-        </p>
-
-        <form class="email-form" onsubmit="subscribe(event)">
-
-            <input
-                type="email"
-                id="email"
-                placeholder="Enter your email"
-                required
-            >
-
-            <button type="submit">
-                Subscribe
-            </button>
-
-        </form>
-
+    <div class="feature">
+      Minimum Deposit: <span>₹100 Only</span>
     </div>
 
-
-    <!-- ================= FAQ ================= -->
-
-    <section id="faq">
-
-        <div class="section-header">
-
-            <span>FAQ</span>
-
-            <h2>
-                Questions? We've got answers.
-            </h2>
-
-        </div>
-
-
-        <div class="faq">
-
-            <details>
-                <summary>
-                    How can I stay motivated every day?
-                </summary>
-
-                <p>
-                    Focus on small actions instead of waiting for a burst
-                    of motivation. Create a routine and make progress
-                    easier to repeat.
-                </p>
-            </details>
-
-
-            <details>
-                <summary>
-                    What if I fail?
-                </summary>
-
-                <p>
-                    Failure is information, not a final destination.
-                    Learn what went wrong, adjust your approach and try again.
-                </p>
-            </details>
-
-
-            <details>
-                <summary>
-                    How big should my goals be?
-                </summary>
-
-                <p>
-                    Choose goals that challenge you while still being
-                    realistic. Then divide them into smaller milestones.
-                </p>
-            </details>
-
-
-            <details>
-                <summary>
-                    Do I need motivation before taking action?
-                </summary>
-
-                <p>
-                    No. Very often action creates motivation. Start with
-                    something small and let momentum build naturally.
-                </p>
-            </details>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer>
-
-        <div class="footer-grid">
-
-            <div class="footer-brand">
-
-                <div class="logo">
-                    RISE<span>UP</span>
-                </div>
-
-                <p>
-                    A place to remind yourself that your story is still
-                    being written. Keep learning. Keep growing.
-                    Keep going.
-                </p>
-
-            </div>
-
-
-            <div>
-
-                <h4>Explore</h4>
-
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#goals">Goals</a></li>
-                    <li><a href="#stories">Stories</a></li>
-                </ul>
-
-            </div>
-
-
-            <div>
-
-                <h4>Resources</h4>
-
-                <ul>
-                    <li>Daily Quotes</li>
-                    <li>Goal Setting</li>
-                    <li>Mindset</li>
-                    <li>Productivity</li>
-                </ul>
-
-            </div>
-
-
-            <div>
-
-                <h4>Connect</h4>
-
-                <ul>
-                    <li>Instagram</li>
-                    <li>YouTube</li>
-                    <li>Twitter</li>
-                    <li>Facebook</li>
-                </ul>
-
-            </div>
-
-        </div>
-
-
-        <div class="copyright">
-            © 2026 RiseUp. Keep moving forward. 🚀
-        </div>
-
-    </footer>
-
-
-    <!-- ================= JAVASCRIPT ================= -->
-
-    <script>
-
-        const quotes = [
-            {
-                text: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
-                author: "Winston Churchill"
-            },
-            {
-                text: "The future depends on what you do today.",
-                author: "Mahatma Gandhi"
-            },
-            {
-                text: "Believe you can and you're halfway there.",
-                author: "Theodore Roosevelt"
-            },
-            {
-                text: "Great things are done by a series of small things brought together.",
-                author: "Vincent van Gogh"
-            },
-            {
-                text: "It always seems impossible until it's done.",
-                author: "Nelson Mandela"
-            },
-            {
-                text: "Don't watch the clock; do what it does. Keep going.",
-                author: "Sam Levenson"
-            },
-            {
-                text: "Your limitation—it's only your imagination.",
-                author: "Unknown"
-            },
-            {
-                text: "The harder you work for something, the greater you'll feel when you achieve it.",
-                author: "Unknown"
-            },
-            {
-                text: "Dream it. Believe it. Build it.",
-                author: "Unknown"
-            },
-            {
-                text: "You are capable of more than you think.",
-                author: "Unknown"
-            }
-        ];
-
-
-        function newQuote() {
-
-            const random =
-                Math.floor(Math.random() * quotes.length);
-
-            document.getElementById("quote").textContent =
-                quotes[random].text;
-
-            document.getElementById("author").textContent =
-                "— " + quotes[random].author;
-        }
-
-
-        function subscribe(event) {
-
-            event.preventDefault();
-
-            const email =
-                document.getElementById("email").value;
-
-            alert(
-                "Thank you! Motivation is on its way to " + email + " 🚀"
-            );
-
-            document.getElementById("email").value = "";
-        }
-
-
-        // Reveal elements when scrolling
-
-        const cards =
-            document.querySelectorAll(
-                ".feature-card, .testimonial, .step"
-            );
-
-        const observer =
-            new IntersectionObserver(
-                entries => {
-
-                    entries.forEach(entry => {
-
-                        if (entry.isIntersecting) {
-
-                            entry.target.style.opacity = "1";
-                            entry.target.style.transform =
-                                "translateY(0)";
-
-                        }
-
-                    });
-
-                },
-                {
-                    threshold: 0.15
-                }
-            );
-
-
-        cards.forEach(card => {
-
-            card.style.opacity = "0";
-            card.style.transform = "translateY(30px)";
-            card.style.transition = "all .7s ease";
-
-            observer.observe(card);
-
-        });
-
-    </script>
+    <div class="feature">
+      Welcome Bonus: <span>10%</span>
+    </div>
+
+    <div class="feature">
+      Auto Website Support:
+      <a
+        class="signup-btn"
+        href="https://cbtf.com/clk?src=dvOFld5Vu"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Click on Signup
+      </a>
+    </div>
+
+    <div class="feature">
+      Quick Help:
+      <span>Deposit &amp; Withdrawal Support</span>
+    </div>
+
+  </div>
+
+  <div class="website-row">
+
+    <a
+      class="website"
+      href="https://cbtf.com/clk?src=dvOFld5Vu"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      🌐 www.cbtf.com
+    </a>
+
+    <a
+      class="whatsapp-small"
+      href="https://wa.me/447516115104"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      💬 WhatsApp
+    </a>
+
+  </div>
+
+  <a
+    class="cta"
+    href="https://wa.me/447516115104?text=Hello%20I%20want%20new%20manual%20ID"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    📲 WhatsApp Now
+  </a>
+
+  <p class="trust">
+    ✅ Trusted Manual Support<br>
+    ✅ Simple Process<br>
+    ✅ Fast Response
+  </p>
+
+  <div class="footer">
+    18+ Only | Play Responsibly | Follow Your Local Laws | T&amp;C Apply
+  </div>
+
+</div>
+```
+
+  </div>
+
+</div>
 
 </body>
 </html>
-```
